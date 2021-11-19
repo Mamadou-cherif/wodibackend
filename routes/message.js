@@ -4,6 +4,7 @@ var express = require('express');
 var MessageController = require('../controllers/message');
 var api = express.Router();
 var md_auth = require('../middlewares/authenticated');
+// Je pense que le probleme provient de là; fais glisser le curseur sur les trois pointillés et vous verez
 var multipart = require('connect-multiparty');
 // l'instruction de la ligne suivante permet de telecharger l'image du challenge dans le dossier des assets du frontend
 var md_upload = multipart({uploadDir: './uploads/publications/'});                                                                                                                                           
@@ -12,7 +13,7 @@ api.post("/initialize", md_auth.ensureAuth,MessageController.inititChallenge)
 api.put("/update/:id", md_auth.ensureAuth, MessageController.edition)
 api.post('/compt1/:id',MessageController.addCompt1);
 api.post('/compt2/:id',MessageController.addCompt2);
-api.post('/upload-image-pub/:id', [md_auth.ensureAuth, md_upload], MessageController.uploadImage);
+api.post('/upload-image-pub/:id',[md_auth.ensureAuth, md_upload],  MessageController.uploadImage);
 api.get('/get-image-pub/:imageFile', MessageController.getImageFile);
 api.get('/getAllChallenge', MessageController.getAllMessages);
 api.get('/getChallengeForSorting', MessageController.getAllMessagesForSorting);

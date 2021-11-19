@@ -78,38 +78,37 @@ function inititChallenge(req, res) {
 
  function uploadImage(req, res) {
     var messageId = req.params.id;
-   
+
      if (req.files) {
     //  je viens d'ajouter des modifications  à cette partie
          var file = req.files.image;
          var extension= req.files.image.path;
          var ext_split = extension.split('.');
-         var file_ext = ext_split[1];
-         
+         var file_ext = ext_split[1].toLowerCase();
 
      if (file_ext === 'png' || file_ext === 'jpg' || file_ext === 'jpeg' || file_ext === 'gif') {
-        cloudinary.uploader.upload(file.path, function(err, result){
-            if(err){
-                res.status(500).json({error: "error"})
-            }
+          cloudinary.uploader.upload(file.path, function(err, result){
+              if(err){
+                  res.status(500).json({error: "error"})
+              }
 
 
-         Message.findOne({'_id': messageId}).exec((err, message) => {
-                 Message.findByIdAndUpdate(messageId, {text: result.url,  maxTime: moment().unix()+18000 }, {new : true}, (err, messageUpdated) => {
-                     if (!messageUpdated)
-                         return res.status(404).send({message: "Message Not Found."});
-                     if (err)
-                         return res.status(500).send({message: "Request Error."});
+           Message.findOne({'_id': messageId}).exec((err, message) => {
+                   Message.findByIdAndUpdate(messageId, {text: result.url,  maxTime: moment().unix()+18000 }, {new : true}, (err, messageUpdated) => {
+                       if (!messageUpdated)
+                           return res.status(404).send({message: "Message Not Found."});
+                       if (err)
+                           return res.status(500).send({message: "Request Error."});
 
-                     return res.status(200).send({message: messageUpdated});
-                 });
+                       return res.status(200).send({message: messageUpdated});
+                   });
              
            
                 
             
            
-         });
-         })
+           });
+           })
      } 
      else {
          return removeFilesOfUploads(res, extension, "Ups, please upload a valid image file.");
@@ -283,26 +282,6 @@ module.exports = {
     edition,
     getAllMessagesForSorting
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
