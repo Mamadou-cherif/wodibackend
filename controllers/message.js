@@ -76,7 +76,7 @@ function inititChallenge(req, res) {
 
 // this is added to change the second image to switch from null to the value of the num of the downloaded file
 
- function uploadImage(req, res) {
+function uploadImage(req, res) {
     var messageId = req.params.id;
 
      if (req.files) {
