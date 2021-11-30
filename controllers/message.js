@@ -84,7 +84,7 @@ function uploadImage(req, res) {
          var file = req.files.image;
          var extension= req.files.image.path;
          var ext_split = extension.split('.');
-         var file_ext = ext_split[1].toLowerCase();
+         var file_ext = ext_split[1];
 
      if (file_ext === 'png' || file_ext === 'jpg' || file_ext === 'jpeg' || file_ext === 'gif') {
           cloudinary.uploader.upload(file.path, function(err, result){
