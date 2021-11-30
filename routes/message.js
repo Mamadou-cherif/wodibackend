@@ -13,7 +13,7 @@ var md_upload = multipart({uploadDir: './uploads/publications/'});
     api.put("/update/:id", md_auth.ensureAuth, MessageController.edition)
     api.post('/compt1/:id',MessageController.addCompt1);
     api.post('/compt2/:id',MessageController.addCompt2);
-    api.post('/upload-image-pub/:id',  MessageController.uploadImage);
+    api.post('/upload-image-pub/:id',[md_auth.ensureAuth, md_upload],  MessageController.uploadImage);
     api.get('/get-image-pub/:imageFile', MessageController.getImageFile);
     api.get('/getAllChallenge', MessageController.getAllMessages);
     api.get('/getChallengeForSorting', MessageController.getAllMessagesForSorting);
