@@ -227,22 +227,6 @@ function addCompt1(req,res){
 
 
 function addCompt2(req,res){
-    var messageId = req.params.id;
-    
- Message.findOne({'_id': messageId}).exec((err, message) => {
-  //recuperer la valeur actuelle du champ du compteur du champ1
-     var currentMessageCompt2= message.compt2;
-      Message.findByIdAndUpdate(messageId, {compt2: currentMessageCompt2+1}, {new : true}, (err, messageUpdated) => {
-          if (!messageUpdated)
-              return res.status(404).send({message: "Message Not Found."});
-          if (err){
-              return res.status(500).send({message: "Request Error."});
-
-          }
-                
-        return res.status(200).send({message: messageUpdated});
-        });   
- });
 
 }
  
