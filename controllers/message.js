@@ -90,8 +90,9 @@ function uploadImage(req, res) {
           cloudinary.uploader.upload(file.path, function(err, result){
               if(err){
                   res.status(500).json({error: "error"})
-              }
 
+                }
+              
 
            Message.findOne({'_id': messageId}).exec((err, message) => {
                    Message.findByIdAndUpdate(messageId, {text: result.url,  maxTime: moment().unix()+18000 }, {new : true}, (err, messageUpdated) => {
